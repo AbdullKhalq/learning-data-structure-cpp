@@ -3,5 +3,7 @@ using namespace std;
 
 struct Node
 {
-    /* data */
+    int value;
+    int *nextNode;
 };
+Node

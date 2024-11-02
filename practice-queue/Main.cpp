@@ -70,7 +70,7 @@ int main() {
     q.enqueue(6);
     q.enqueue(7);
     q.enqueue(8);
-    q.enqueue(9);
+    q.enqueue(99);
     q.enqueue(10);
 
     // checks other methods
