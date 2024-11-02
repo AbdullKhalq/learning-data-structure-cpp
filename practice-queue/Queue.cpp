@@ -25,9 +25,9 @@ struct Queue
         }
     }
 
-    /* Removes an element from the front of the queue.
-     * That location will have zero after dequeueing even though it cannot be accessed directly.
-     */
+    // Removes an element from the front of the queue. 
+    // That location will have zero after dequeueing and 
+    // it cannot be accessed directly.
     void dequeue() {
         if (front == -1 && rear == -1) {
             cout << "Can't dequeue. Queue underflow" << endl;
