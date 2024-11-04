@@ -7,142 +7,113 @@ struct Employee{//like Node in single linked list
 };
 Employee *temp=NULL, *head=NULL, *tail=NULL, *cur=NULL;
 
-void InsertFront()
-{
-	//////////////////////////////
-	//Preparing the new Employee (Node)
+
+void InsertFront() {
     temp = new Employee;
-    cout<<"Enter Employee Name:\n";
-    cin>>temp->name;
-    cout<<"Enter Employee ID:\n";
-    cin>>temp->id;
-    temp->prev=NULL;//new
-    temp->next=NULL;//like link in single linked list 
-    //////////////////////////////
-    if (head==NULL)
-    {
-        head=temp;
-        tail=temp;
-    }
-    else
-    {
-        temp->next=head;
-        head->prev=temp;//new
-        head=temp;
-        head->prev = tail;  // Addition: To make it circular
+    cout << "Enter Employee Name:\n";
+    cin >> temp->name;
+    cout << "Enter Employee ID:\n";
+    cin >> temp->id;
+    
+    if (head == NULL) { // If list is empty
+        head = tail = temp;
+        temp->next = temp; // Pointing to itself to make circular
+        temp->prev = temp;
+    } else {
+        temp->next = head;
+        temp->prev = tail;
+        head->prev = temp;
+        tail->next = temp;
+        head = temp;
     }
 }
 
-void InsertRear()
-{
-	//////////////////////////////
-	//Preparing the new Employee (Node)
+void InsertRear() {
     temp = new Employee;
-    cout<<"Enter Employee Name:\n";
-    cin>>temp->name;
-    cout<<"Enter Employee ID:\n";
-    cin>>temp->id;
-    temp->prev=NULL;
-    temp->next=NULL;
-	//////////////////////////////
-    if (head==NULL)
-    {
-        head=temp;
-        tail=temp;
-    }
-    else
-    {
-        tail->next=temp;
-        temp->prev=tail;//new
-        tail=temp;
-        tail->next = head; // Addition: To make it circular
+    cout << "Enter Employee Name:\n";
+    cin >> temp->name;
+    cout << "Enter Employee ID:\n";
+    cin >> temp->id;
+    
+    if (head == NULL) { // If list is empty
+        head = tail = temp;
+        temp->next = temp; // Pointing to itself to make circular
+        temp->prev = temp;
+    } else {
+        temp->prev = tail;
+        temp->next = head;
+        tail->next = temp;
+        head->prev = temp;
+        tail = temp;
     }
 }
 
-void DeleteFront()
-{
+void DeleteFront() {
+    if (head == NULL) {
+        cout << "List is Empty!!\n";
+        return;
+    }
+    
     temp = head;
-    if(head==NULL)
-      cout<<"List is Empty!!\n";
-    else
-    {
-        if(head->next==NULL)//if list has only one item 
-        {//list become empty
-            head=NULL;
-            tail=NULL;
-        }
-        else
-        {
-            head = head->next;
-            head->prev = tail; // edited: head->prev = NULL; --> head->prev = tail
-        }
-        cout<<"Deleted:"<<temp->name << " " <<temp->id <<"\n";
-        delete temp;
+    if (head == tail) { // Only one node in the list
+        head = tail = NULL;
+    } else {
+        head = head->next;
+        head->prev = tail;
+        tail->next = head;
     }
-    cout<<endl;
+    cout << "Deleted: " << temp->name << " " << temp->id << "\n";
+    delete temp;
+    cout << endl;
 }
 
-void DeleteRear()
-{
-    temp=tail;
-    if(head==NULL)
-       cout<< "List is Empty!!\n";
-    else
-    {
-        if(head->next==NULL)//if list has only one item 
-        {//list become empty
-            head=NULL;
-            tail=NULL;
-        }
-        else
-        {//here no need to reach the prev Node
-                tail=tail->prev;
-                tail->next=head;  // edited: tail->next=NULL; --> head
-        }
-           cout<<"Deleted:"<<temp->name << " " <<temp->id <<"\n";
-           delete temp;
+void DeleteRear() {
+    if (head == NULL) {
+        cout << "List is Empty!!\n";
+        return;
     }
-    cout<<endl;
+
+    temp = tail;
+    if (head == tail) { // Only one node in the list
+        head = tail = NULL;
+    } else {
+        tail = tail->prev;
+        tail->next = head;
+        head->prev = tail;
+    }
+    cout << "Deleted: " << temp->name << " " << temp->id << "\n";
+    delete temp;
+    cout << endl;
 }
 
-void PrintForward()
-{
-    cur=head;
+void PrintForward() {
+    if (head == NULL) {
+        cout << "List is Empty!!\n";
+        return;
+    }
 
-    if(head==NULL)
-    {
-        cout<<"List is Empty!!\n";
-    }
-    else
-    {
-        cout<<"List display: \n";
-        while(cur!= head)  // Edited: avoids infinite loop
-        {
-            cout<< cur->name <<" " <<cur->id <<"\n";
-            cur=cur->next;//Forward
-        }
-        cout<<endl;
-    }
+    cout << "List display (forward): \n";
+    cur = head;
+    do {
+        cout << cur->name << " " << cur->id << "\n";
+        cur = cur->next;
+    } while (cur != head);
+    cout << endl;
 }
 
-void PrintBackward()
-{
-    cur=tail;
+void PrintBackward() {
+    if (head == NULL) {
+        cout << "List is Empty!!\n";
+        return;
+    }
 
-    if(head==NULL)
-    {
-        cout<<"List is Empty!!\n";
-    }
-    else
-    {
-        cout<<"List display: \n";
-        while(cur!= tail) // Edited: avoids infinite loop
-        {
-            cout<< cur->name <<" " <<cur->id <<"\n";
-            cur=cur->prev;//Backward
-        }
-        cout<<endl;
-    }
+    cout << "List display (backward): \n";
+    cur = tail;
+    do {
+        cout << cur->name << " " << cur->id << "\n";
+        cur = cur->prev;
+    } while (cur != tail);
+    cout << endl;
 }
 
 int main(){
