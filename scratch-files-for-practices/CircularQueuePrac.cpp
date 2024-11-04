@@ -9,7 +9,7 @@ struct CircularQueue
     int rear = -1;
 
     void enqueue(int value) {
-        if ((rear + 1 % MAX) == front) {
+        if ((rear + 1) % MAX == front) {
             cout << "Can't enqueue " << value <<". queueoverflow" << endl;
         }
         else {
@@ -31,7 +31,7 @@ struct CircularQueue
         }
         else {
             cout << "Dequeue: " << queue[front] << endl;
-            if ((front + 1) % MAX == rear) {
+            if (front == rear) {
                 front = -1;
                 rear = -1;
             }

@@ -60,28 +60,63 @@ struct Queue
 
 };
 
+struct Stack
+{
+    int stack[MAX];
+    int top = -1;
+
+    void push(int value) {
+        if (top == MAX - 1) {
+            cout << "Can't push. Stackoverflow" << endl;
+        }
+        else {
+            stack[++top] = value;
+        }
+    }
+
+    // Edit to return int
+    int pop() {
+        if (top == -1) {
+            cout << "Can't pop. Stackunderflow" << endl;
+        }
+        else {
+            cout << "Pop: " << stack[top] << endl;
+            return stack[top--];
+        }
+    }
+
+    void displayStack() {
+        if (top == -1) {
+            cout << "Can't display. Stackunderflow" << endl;
+        }
+        else {
+            cout << "Stack elements: "<< endl;
+            for (int i = top; i >= 0; i--) {
+                cout << stack[i] << ' ';
+            }
+        cout << endl;
+        }
+    }
+
+};
+
+Queue stackToQueue(Stack &stack) {
+    Queue convQueue;
+    while (stack.top != -1)
+    {
+        int value = stack.pop();
+        convQueue.enqueue(value);
+    }
+    return convQueue;
+}
+
 int main() {
-    Queue q;
-
-    // checks if it correctly identify empty queue
-    q.displayQueue();  
-
-    // checks if it works properly & handles overflow
-    q.enqueue(5);
-    q.enqueue(6);
-    q.enqueue(7);
-    q.enqueue(8);
-    q.enqueue(99);
-    q.enqueue(10);
-
-    // checks other methods
+    Stack stk;
+    stk.push(5);
+    stk.push(7);
+    stk.displayStack();
+    Queue q = stackToQueue(stk);
     q.displayQueue();
-    q.dequeue();
-    q.displayQueue();
-
-    q.enqueue(7);  // gives overflow because rear is at MAX
-    q.displayQueue();
-
 
     return 0;
 }
