@@ -116,7 +116,7 @@ void PrintForward()
     else
     {
         cout<<"List display: \n";
-        while(cur!=NULL)
+        while(cur!= head)  // Edited: avoids infinite loop
         {
             cout<< cur->name <<" " <<cur->id <<"\n";
             cur=cur->next;//Forward
@@ -136,7 +136,7 @@ void PrintBackward()
     else
     {
         cout<<"List display: \n";
-        while(cur!=NULL)
+        while(cur!= tail) // Edited: avoids infinite loop
         {
             cout<< cur->name <<" " <<cur->id <<"\n";
             cur=cur->prev;//Backward
